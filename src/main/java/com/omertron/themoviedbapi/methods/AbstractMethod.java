@@ -69,7 +69,7 @@ public class AbstractMethod {
     protected final HttpTools httpTools;
     // Jackson JSON configuration
     protected static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final Map<Class<? extends Serializable>, TypeReference<? extends WrapperGenericList<? extends Serializable>>> TYPE_REFS = new HashMap<>();
+    private static final Map<Class<? extends Serializable>, TypeReference<? extends WrapperGenericList<?>>> TYPE_REFS = new HashMap<>();
 
     static {
         TYPE_REFS.put(MovieBasic.class, new TypeReference<WrapperGenericList<MovieBasic>>() {
@@ -125,6 +125,7 @@ public class AbstractMethod {
      * @return
      * @throws MovieDbException
      */
+    @SuppressWarnings("unchecked")
     protected static <T> TypeReference<? extends WrapperGenericList<T>> getTypeReference(Class<T> aClass) throws MovieDbException {
         if (TYPE_REFS.containsKey(aClass)) {
             return (TypeReference<? extends WrapperGenericList<T>>) TYPE_REFS.get(aClass);
